@@ -5,14 +5,17 @@ import { cartActions } from "../../Store/cartSlice";
 
 const ProductItem = (props) => {
   const { title, price, description, id } = props;
+  // Get the dispatch function from react-redux to dispatch actions to the Redux store
   const disptach = useDispatch();
 
+  // Handler function to add the current product to the cart
   const addToCartHandler = () => {
+    // Dispatch the addItemToCart action with the product's id, title, and price
     disptach(
       cartActions.addItemToCart({
-        id,
-        title,
-        price,
+        id, // Unique identifier for the product
+        title, // Name of the product
+        price, // Price of the product
       })
     );
   };
