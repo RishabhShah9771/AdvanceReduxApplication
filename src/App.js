@@ -5,6 +5,7 @@ import Products from "./components/Shop/Products";
 import { Fragment, useEffect } from "react";
 import Notification from "./components/Notifications/Notification";
 import sendCartData from "./Store/ActionThunk";
+import fetchCartData from "./Store/FetchActionThunk";
 
 let isInitial = true;
 function App() {
@@ -14,11 +15,17 @@ function App() {
   const notification = useSelector((state) => state.ui.notification);
 
   useEffect(() => {
+    dispatch(fetchCartData());
+  }, [dispatch]);
+
+  useEffect(() => {
     if (isInitial) {
       isInitial = false;
       return;
     }
-    dispatch(sendCartData(cart));
+    if (cart.changed) {
+      dispatch(sendCartData(cart));
+    }
   }, [cart, dispatch]);
 
   return (
